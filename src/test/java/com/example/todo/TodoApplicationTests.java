@@ -50,23 +50,16 @@ class TodoApplicationTests {
 	}
 
 	@Test
-	void failRegisteringUserTest(){
+	void wrongEmailRegistrationTest(){
 		User user = new User(1L, "userEmail@s", "userName", "userPassword22<@");
 		ResponseEntity responseEntity = userController.registerUser(user);
 		assertEquals(responseEntity,new ResponseEntity("Wrong Email or Password", HttpStatus.BAD_REQUEST));
 	}
 
 	@Test
-	void validateUserEmailTest(){
-		User user = new User(1L, "userEmail@s.com", "userName", "userPassword22<@");
-		Boolean validEmail = userController.validateEmail(user.getEmail());
-		assertTrue(validEmail);
-	}
-
-	@Test
-	void validateUserPasswordTest(){
-		User user = new User(1L, "userEmail@s.com", "userName", "userPassword22<@");
-		Boolean validPassword = userController.validatePassword(user.getPassword());
-		assertTrue(validPassword);
+	void wrongPasswordRegistrationTest(){
+		User user = new User(1L, "userEmail@s.com", "userName", "userPassword22");
+		ResponseEntity responseEntity = userController.registerUser(user);
+		assertEquals(responseEntity,new ResponseEntity("Wrong Email or Password", HttpStatus.BAD_REQUEST));
 	}
 }
