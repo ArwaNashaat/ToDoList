@@ -24,12 +24,12 @@ public class UserController {
         return new ResponseEntity("Wrong Email or Password", HttpStatus.BAD_REQUEST);
     }
 
-    public boolean validateEmail(String email){
+    private boolean validateEmail(String email){
         String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
         return Pattern.matches(regex, email);
     }
 
-    public boolean validatePassword(String password){
+    private boolean validatePassword(String password){
         String regex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])(?=\\S+$).{8,20}$";
         return Pattern.matches(regex, password);
     }
