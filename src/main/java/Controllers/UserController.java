@@ -3,8 +3,11 @@ package Controllers;
 import Entities.User;
 import Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.xml.ws.Response;
 import java.util.regex.Pattern;
 
 @RestController
@@ -12,13 +15,13 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
-    public User registerUser(User user){
+    public ResponseEntity registerUser(User user){
         boolean isValidEmail = validateEmail(user.getEmail());
         boolean isValidPassword = validatePassword(user.getPassword());
         if(isValidEmail && isValidPassword)
-            return userRepository.save(user);
-        //return json with message wrong pass or email and http response
-        return null;
+            return new ResponseEntity(userRepository.save(user), HttpStatus.OK);
+
+        return new ResponseEntity("Wrong Email or Password", HttpStatus.BAD_REQUEST);
     }
 
     public boolean validateEmail(String email){

@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -41,16 +43,22 @@ class TodoApplicationTests {
 
 	@Test
 	void registerUserTest(){
-		User user = new User(1L, "userEmail@s.com", "userName", "userPassword");
-		userController.registerUser(user);
-		Optional<User> newUser = userRepository.findById(1L);
-		assertEquals(newUser.get(),user);
+		User user = new User(1L, "userEmail@s.com", "userName", "userPassword22<@");
+		ResponseEntity responseEntity = userController.registerUser(user);
+		assertEquals(responseEntity,new ResponseEntity(user, HttpStatus.OK));
 		userRepository.delete(user);
 	}
 
 	@Test
+	void failRegisteringUserTest(){
+		User user = new User(1L, "userEmail@s", "userName", "userPassword22<@");
+		ResponseEntity responseEntity = userController.registerUser(user);
+		assertEquals(responseEntity,new ResponseEntity("Wrong Email or Password", HttpStatus.BAD_REQUEST));
+	}
+
+	@Test
 	void validateUserEmailTest(){
-		User user = new User(1L, "userEmail@s.com", "userName", "userPassword");
+		User user = new User(1L, "userEmail@s.com", "userName", "userPassword22<@");
 		Boolean validEmail = userController.validateEmail(user.getEmail());
 		assertTrue(validEmail);
 	}
