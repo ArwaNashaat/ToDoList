@@ -1,6 +1,6 @@
-Backend/HELP.md
-Backend/target/
-Backend/!.mvn/wrapper/maven-wrapper.jar
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
 
@@ -14,10 +14,10 @@ Backend/!.mvn/wrapper/maven-wrapper.jar
 .sts4-cache
 
 ### IntelliJ IDEA ###
-Backend/.idea
-Backend/*.iws
-Backend/*.iml
-Backend/*.ipr
+.idea
+*.iws
+*.iml
+*.ipr
 
 ### NetBeans ###
 /nbproject/private/
