@@ -1,7 +1,7 @@
-package Controllers;
+package com.example.controllers;
 
-import Entities.ToDo;
-import Repositories.ToDoRepository;
+import com.example.entities.ToDo;
+import com.example.repositories.ToDoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 

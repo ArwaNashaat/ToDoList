@@ -1,9 +1,12 @@
 package com.example.todo;
 
 
-import Controllers.*;
-import Entities.*;
-import Repositories.*;
+import com.example.controllers.ToDoController;
+import com.example.controllers.UserController;
+import com.example.entities.ToDo;
+import com.example.entities.User;
+import com.example.repositories.ToDoRepository;
+import com.example.repositories.UserRepository;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.springframework.beans.factory.annotation.Autowired;
