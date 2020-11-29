@@ -80,8 +80,4 @@ public class User {
         return Objects.hash(id, email, name, password);
     }
 
-
-    public boolean isMatches(String regex, String parameter) {
-        return parameter.matches(regex);
-    }
 }
