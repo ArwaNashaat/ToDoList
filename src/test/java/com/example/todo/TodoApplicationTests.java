@@ -64,10 +64,11 @@ class TodoApplicationTests {
 	}
 
 	@Test
-	void hashPasswordTest(){
-		String password = "userPassword22<@";
-		String encodePassword = userController.encodePassword(password);
-		assertNotEquals("userPassword22<@", encodePassword);
+	void encodePasswordTest(){
+		User user = new User(1L, "userEmail@s.com", "userName", "userPassword22<@");
+		ResponseEntity responseEntity = userController.registerUser(user);
+		User updatedUser = (User) responseEntity.getBody();
+		assertNotEquals("userPassword22<@", updatedUser.getPassword());
 	}
 
 }

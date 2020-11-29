@@ -37,8 +37,7 @@ public class UserController {
         return Pattern.matches(regex, password);
     }
 
-    //TODO make it private
-    public String encodePassword(String password){
+    private String encodePassword(String password){
         PasswordEncoder passwordEncoder = new Pbkdf2PasswordEncoder();
         return passwordEncoder.encode(password);
     }
