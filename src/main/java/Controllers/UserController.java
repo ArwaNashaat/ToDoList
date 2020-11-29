@@ -5,9 +5,10 @@ import Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.xml.ws.Response;
 import java.util.regex.Pattern;
 
 @RestController
@@ -18,9 +19,11 @@ public class UserController {
     public ResponseEntity registerUser(User user){
         boolean isValidEmail = validateEmail(user.getEmail());
         boolean isValidPassword = validatePassword(user.getPassword());
-        if(isValidEmail && isValidPassword)
+        if(isValidEmail && isValidPassword) {
+            String encodedPassword = encodePassword(user.getPassword());
+            user.setPassword(encodedPassword);
             return new ResponseEntity(userRepository.save(user), HttpStatus.OK);
-
+        }
         return new ResponseEntity("Wrong Email or Password", HttpStatus.BAD_REQUEST);
     }
 
@@ -32,6 +35,12 @@ public class UserController {
     private boolean validatePassword(String password){
         String regex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])(?=\\S+$).{8,20}$";
         return Pattern.matches(regex, password);
+    }
+
+    //TODO make it private
+    public String encodePassword(String password){
+        PasswordEncoder passwordEncoder = new Pbkdf2PasswordEncoder();
+        return passwordEncoder.encode(password);
     }
 
 }

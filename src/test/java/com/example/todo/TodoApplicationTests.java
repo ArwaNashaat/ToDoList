@@ -62,4 +62,12 @@ class TodoApplicationTests {
 		ResponseEntity responseEntity = userController.registerUser(user);
 		assertEquals(responseEntity,new ResponseEntity("Wrong Email or Password", HttpStatus.BAD_REQUEST));
 	}
+
+	@Test
+	void hashPasswordTest(){
+		String password = "userPassword22<@";
+		String encodePassword = userController.encodePassword(password);
+		assertNotEquals("userPassword22<@", encodePassword);
+	}
+
 }
